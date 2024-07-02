@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微博舆情分析系统-首页</title>
+    <style>
+       body {
+      animation: blink 2s infinite alternate; 
+    }
+
+    @keyframes blink {
+      0% {
+        background-color: pink; 
+      }
+
+      100% {
+        background-color: skyblue; 
+      }
+    }
+
+    .content{
+        width: 90%;
+        max-width: 90%; /* 添加最大宽度以防止在大屏幕上变得过大 */
+        height: 1000px;
+        background-color: #ffffff;
+        box-sizing: border-box;
+        border-radius: 5px;
+        margin-left: 5%;
+        margin-top: 20px;
+    }
+    .guidebar{
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        max-width: 100%; /* 添加最大宽度以防止在大屏幕上变得过大 */
+        height: 60px;
+        background-color: rgb(221, 196, 240);
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+    .button{
+            margin-top: 5px;
+            width: 150px;
+            height: 50px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            background: none;
+            color: #ffffff;
+            border-style: none;
+            box-shadow: 0 0 8px rgba(102, 102, 102, 0.5);
+    }
+    .homecontent{
+      margin-top: 30px;
+    }
+    .search{
+      display: inline-block;
+      align-items:center;
+
+    }
+    .sear{
+      border: 1px solid #b0b3c9;
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 30px;
+            margin-left: 60px;
+    }
+    .searchbutton{
+      margin-top: 5px;
+            width: 50px;
+            height: 30px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            background: none;
+            color: #000000;
+            border-style: none;
+            box-shadow: 0 0 8px rgba(102, 102, 102, 0.5);
+    }
+    table {
+      width: 90%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      margin-left: 5%;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 10px;
+      text-align: left;
+    }
+
+    </style>
+    
+
+</head>
+
+<body>
+    <div class="content">
+        <div class="guidebar">
+            <div>
+                <button onclick="homepage()" class="button">首页</button>
+                <button onclick="sentimentpage()" class="button">情感分析可视化</button>
+                <button onclick="weibopage()" class="button">微博可视化</button>
+                <button onclick="Kmeanspage()" class="button">微博KMeans聚类分析</button>
+            </div>
+            <div>
+                <button onclick="exist()" class="button">退出登录</button>
+                <button onclick="user()" class="button">欢迎你，用户user</button>
+            </div>
+            
+
+        </div>
+        <div class="homecontent">
+          <div class="search">
+             <input type="text" class="sear" placeholder="搜索话题">
+             <button onclick="search()" class="searchbutton">显示</button></div>
+          </div>
+          <div class="display">
+            <table id="data-table">
+              <thead>
+                <tr>
+                  <th>点赞数</th>
+                  <th>评论数</th>
+                  <th>转发数</th>
+                  <th>动态文字</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+         
+        </div>
+
+
+    </div>
+
+
+    <script>
+        function homepage() {
+      // 跳转到首页页面的逻辑
+      window.location.href ='home.html';
+        }
+        function sentimentpage() {
+      // 跳转到情感分析可视化页面的逻辑
+      window.location.href ='sentiment.html';
+        }
+        function weibopage() {
+      // 跳转到微博可视化页面的逻辑
+      window.location.href ='weibo.html';
+        }
+        function Kmeanspage() {
+      // 跳转到微博KMeans聚类分析页面的逻辑
+      window.location.href ='Kmeans.html';
+        }
+        function exist() {
+      // 跳转到登录页面的逻辑
+      window.location.href ='login.html';
+        }
+        function search() {
+      // 搜索页面的逻辑
+      const apiUrl = 'https://example.com/api/data';
+
+      fetch(apiUrl)
+     .then(response => response.json())
+     .then(data => {
+        const tbody = document.querySelector('#data-table tbody');
+
+        data.forEach(item => {
+          const row = document.createElement('tr');
+
+          const likesCell = document.createElement('td');
+          nameCell.textContent = item.likes;
+          row.appendChild(likesCell);
+
+          const commentsCell = document.createElement('td');
+          ageCell.textContent = item.comments;
+          row.appendChild(commentsCell);
+
+          const fowardsCell = document.createElement('td');
+          cityCell.textContent = item.fowards;
+          row.appendChild(fowardsCell);
+
+          const textCell = document.createElement('td');
+          cityCell.textContent = item.text;
+          row.appendChild(textCell);
+
+          tbody.appendChild(row);
+        });
+      })
+     .catch(error => console.error('获取数据出错:', error));
+        }
+
+
+
+    </script>
+    
+</body>
+</html>

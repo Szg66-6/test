@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微博舆情分析系统-注册</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.7.2/axios.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, skyblue, pink);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .register {
+            width: 80%;
+            max-width: 600px; /* 添加最大宽度以防止在大屏幕上变得过大 */
+            height: 500px;
+            background-color: #ffffff;
+            padding: 40px;
+            box-sizing: border-box;
+            border-radius: 20px;
+        }
+        .appname {
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .title {
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .user {
+            border: 1px solid #b0b3c9;
+            width: 100%;
+            max-width: 300px; /* 限制输入框的最大宽度 */
+            height: 30px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .password {
+            border: 1px solid #b0b3c9;
+            width: 100%;
+            max-width: 300px; /* 限制输入框的最大宽度 */
+            height: 30px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+
+        
+        .username {
+            text-align: center;
+        }
+
+        .email{
+            border: 1px solid #b0b3c9;
+            width: 100%;
+            max-width: 300px; /* 限制输入框的最大宽度 */
+            height: 30px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .registerbutton {
+            margin-top: 30px;
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            background: linear-gradient(to right, skyblue, pink);
+            color: #ffffff;
+            border-style: none;
+            display: block; /* 确保按钮在容器中独占一行 */
+            margin: 30px auto 0; /* 水平居中 */
+        }
+
+        .go-to-login {
+            cursor: pointer;
+            color: #4e7aff;
+            border-style: none;
+            background: #ffffff;
+            display: inline-block; /* 修改为inline-block以水平排列 */
+            margin: 10px auto 0; /* 水平居中 */
+            text-align: center;
+        }
+        .container {
+            text-align: center; /* 确保容器内的内容水平居中 */
+        }
+
+        .password-visibility {
+            cursor: pointer;
+            color: #4e7aff;
+            border-style: none;
+            background: #ffffff;
+            display: inline-block; /* 修改为inline-block以水平排列 */
+            margin: 10px auto 0; /* 水平居中 */
+            text-align: center;
+        }
+        .container {
+            text-align: center; /* 确保容器内的内容水平居中 */
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="register">
+            <div class="appname">注册</div>
+            
+            <div class="username">
+                <input class="email" type="text" placeholder="email" id="registerEmail"><br>
+                <input class="user" type="text" placeholder="username" id="registerUsername"><br>
+                <input class="password" type="password" placeholder="password" id="registerPassword" ><br>
+                <input class="password" type="password" placeholder="password check" id="passwordCheck">
+            </div>
+            <button onclick="register()" class="registerbutton">register</button><br>
+            <button onclick="jumplogin()" class="go-to-login">返回登陆</button>
+            <button onclick="togglePasswordVisibility()" class="password-visibility">显示/隐藏密码</button>
+        </div>
+    </div>
+    <script>
+        function register() { // 检查密码和确认密码是否一致
+            var password = document.getElementById("registerPassword").value;
+            var passwordCheck = document.getElementById("passwordCheck").value;
+            if (password !== passwordCheck) {
+                alert("密码不一致，请重新输入");
+            } else {
+                const username = document.getElementById('registerUsername').value;
+                const password = document.getElementById('registerPassword').value;
+                const email = document.getElementById('registerEmail').value;
+
+    axios.post('http://10.21.249.41:8000/users/register/', {
+        username,
+        password,
+        email
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+  .then(response => {
+        if (response.data.success) {
+            alert('注册成功！');
+        } else {
+            alert('注册失败，请稍后重试。');
+            return;
+        }
+    })
+  .catch(error => {
+        console.error('Error:', error);
+        alert('注册时发生错误，请稍后重试。');
+    });
+                // 执行注册逻辑
+            }
+        }
+
+        function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        var passwordcheckInput = document.getElementById("passwordCheck");
+        if (passwordInput.type === "password") {
+           passwordInput.type = "text";
+        } else {
+           passwordInput.type = "password";
+        }
+
+        if (passwordcheckInput.type === "password") {
+           passwordcheckInput.type = "text";
+        } else {
+           passwordcheckInput.type = "password";
+        }
+
+       }
+
+        function jumplogin() {
+      // 跳转到登录页面的逻辑
+      window.location.href ='login.html';
+        }
+
+    </script>
+    
+</body>
+</html>
